@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Register.css';
 
 const Register = () => {
+  const navigate = useNavigate();
   const [role, setRole] = useState('Petitioner');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -13,27 +15,45 @@ const Register = () => {
   const [judgeCode, setJudgeCode] = useState('');
   const [judgeIdProof, setJudgeIdProof] = useState(null);
 
-  const handleRegister = (e) => {
-    e.preventDefault();
+  const handleRegister = async (e) => {
+  e.preventDefault();
 
-    const formData = new FormData();
-    formData.append('role', role);
-    formData.append('name', name);
-    formData.append('email', email);
-    formData.append('password', password);
+  const formData = new FormData();
+  formData.append('role', role);
+  formData.append('name', name);
+  formData.append('email', email);
+  formData.append('password', password);
 
-    if (role === 'Lawyer') {
-      formData.append('barId', barId);
-      formData.append('lawLicense', lawLicense);
-    } else if (role === 'Judge') {
-      formData.append('judgeCode', judgeCode);
-      formData.append('judgeIdProof', judgeIdProof);
+  if (role === 'Lawyer') {
+    formData.append('barId', barId);
+    formData.append('lawLicense', lawLicense);
+  } else if (role === 'Judge') {
+    formData.append('judgeCode', judgeCode);
+    formData.append('judgeIdProof', judgeIdProof);
+  }
+
+  try {
+    const response = await fetch('http://localhost:5000/api/auth/register', {
+      method: 'POST',
+      body: formData,
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      alert('Registration successful!');
+      console.log('User Registered!!');
+      navigate('/login');
+    } else {
+      alert(`Error: ${data.message || 'Registration failed'}`);
+      console.error('Registration error:', data);
     }
+  } catch (error) {
+    console.error('Network error:', error);
+    alert('Network error! Please try again.');
+  }
+};
 
-    // For now just previewing
-    alert(`Registered as ${role}`);
-    console.log([...formData.entries()]);
-  };
 
   return (
     <div className="register-container">

@@ -5,6 +5,11 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import AdminDashboard from './pages/AdminDashboard';
+import LawyerDashboard from './pages/LawyerDashboard';
+import JudgeDashboard from './pages/JudgeDashboard';
+import PetitionerDashboard from './pages/PetitionerDashboard';
+import ProtectedRoute from './components/ProtectedRoute';
 
 const App = () => {
   return (
@@ -15,7 +20,40 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          {/* Other routes like Login, Register can be added here */}
+
+          {/* Protected Dashboards by Role */}
+          <Route
+            path="/admin-dashboard"
+            element={
+              <ProtectedRoute role="Admin">
+                <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/lawyer-dashboard"
+            element={
+              <ProtectedRoute role="Lawyer">
+                <LawyerDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/judge-dashboard"
+            element={
+              <ProtectedRoute role="Judge">
+                <JudgeDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/petitioner-dashboard"
+            element={
+              <ProtectedRoute role="Petitioner">
+                <PetitionerDashboard />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
         <Footer />
       </div>

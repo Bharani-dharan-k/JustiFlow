@@ -6,12 +6,51 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    console.log({ role, email, password });
-    // You can replace this with your API call
-    alert(`Logging in as ${role}`);
-  };
+  const handleLogin = async (e) => {
+  e.preventDefault();
+
+  try {
+    const response = await fetch('http://localhost:5000/api/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      alert(`Welcome back, ${data.user.name}!`);
+
+      localStorage.setItem('token', data.token);
+  localStorage.setItem('user', JSON.stringify(data.user));
+
+  switch (data.user.role) {
+    case 'Admin':
+      window.location.href = '/admin-dashboard';
+      break;
+    case 'Lawyer':
+      window.location.href = '/lawyer-dashboard';
+      break;
+    case 'Judge':
+      window.location.href = '/judge-dashboard';
+      break;
+    case 'Petitioner':
+      window.location.href = '/petitioner-dashboard';
+      break;
+    default:
+      window.location.href = '/';
+  }
+    } else {
+      alert(data.message || 'Login failed');
+    }
+  } catch (error) {
+    console.error('Login error:', error);
+    alert('Network error. Please try again.');
+  }
+};
+
 
   return (
     <div className="login-container">

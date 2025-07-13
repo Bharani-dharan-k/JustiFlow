@@ -1,11 +1,10 @@
-/* Navbar Container */
+
 .navbar {
   background-color: #002c5f !important;
   padding: 0.75rem 0;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Make container full width with no padding */
 .navbar .container {
   max-width: 100%;
   padding: 0 2rem;
@@ -15,7 +14,6 @@
   align-items: center;
 }
 
-/* Brand / Logo */
 .navbar-brand {
   font-size: 1.8rem;
   font-weight: 700;
@@ -28,7 +26,6 @@
   color: #ffcc00 !important;
 }
 
-/* Nav Links */
 .navbar-nav {
   display: flex;
   justify-content: flex-end;
@@ -47,20 +44,18 @@
   transition: color 0.3s ease-in-out, transform 0.2s;
 }
 
-/* Hover Effect */
 .navbar-nav .nav-link:hover {
   color: #ffcc00 !important;
   transform: translateY(-2px);
 }
 
-/* Active Link (Optional) */
 .navbar-nav .nav-link.active {
   color: #ffcc00 !important;
   font-weight: 600;
   border-bottom: 2px solid #ffcc00;
 }
 
-/* Toggle Icon for Mobile */
+
 .navbar-toggler {
   border: none;
   outline: none;
