@@ -34,11 +34,12 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, role} = req.body;
+    const user = await User.findOne({ email, role });
 
-    // Check user
-    const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ message: 'Invalid email or password' });
+    if (!user) {
+      return res.status(400).json({ message: 'Invalid email, password, or role' });
+    }
 
     // Compare password
     const isMatch = await bcrypt.compare(password, user.password);
@@ -66,3 +67,4 @@ exports.login = async (req, res) => {
     res.status(500).json({ error: 'Server error' });
   }
 };
+

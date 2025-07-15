@@ -10,6 +10,10 @@ import LawyerDashboard from './pages/LawyerDashboard';
 import JudgeDashboard from './pages/JudgeDashboard';
 import PetitionerDashboard from './pages/PetitionerDashboard';
 import ProtectedRoute from './components/ProtectedRoute';
+import ManageLawyers from './pages/ManageLawyers';
+import ManageJudges from './pages/ManageJudges';
+import ViewUsers from './pages/ViewUsers';
+import FileCase from './pages/FileCase';
 
 const App = () => {
   return (
@@ -54,6 +58,40 @@ const App = () => {
               </ProtectedRoute>
             }
           />
+                      <Route
+              path="/admin/lawyers"
+              element={
+                <ProtectedRoute role="Admin">
+                  <ManageLawyers />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/admin/judges"
+              element={
+                <ProtectedRoute role="Admin">
+                  <ManageJudges />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/admin/users"
+              element={
+                <ProtectedRoute role="Admin">
+                  <ViewUsers />
+                </ProtectedRoute>
+              }
+            />
+          <Route
+                          path="/file-case"
+                          element={
+                            <ProtectedRoute role="Petitioner">
+                              <FileCase />
+                            </ProtectedRoute>
+                          }
+/>
         </Routes>
         <Footer />
       </div>
