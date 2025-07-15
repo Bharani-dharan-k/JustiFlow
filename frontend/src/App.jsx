@@ -14,6 +14,7 @@ import ManageLawyers from './pages/ManageLawyers';
 import ManageJudges from './pages/ManageJudges';
 import ViewUsers from './pages/ViewUsers';
 import FileCase from './pages/FileCase';
+import MyCases from './pages/MyCases';
 
 const App = () => {
   return (
@@ -91,7 +92,15 @@ const App = () => {
                               <FileCase />
                             </ProtectedRoute>
                           }
-/>
+        />
+        <Route
+                    path="/my-cases"
+                    element={
+                      <ProtectedRoute role="Petitioner">
+                        <MyCases />
+                      </ProtectedRoute>
+                    }
+        />
         </Routes>
         <Footer />
       </div>

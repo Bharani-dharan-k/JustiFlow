@@ -1,47 +1,54 @@
 .petitioner-dashboard {
-  padding: 30px;
-  max-width: 1200px;
-  margin: auto;
+  padding: 2rem;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+.petitioner-dashboard h2 {
+  margin-bottom: 2rem;
+  text-align: center;
+  color: #003366;
 }
 
 .dashboard-grid {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 20px;
 }
 
 .dashboard-card {
-  background: #ffffff;
-  border: 1px solid #ddd;
+  background-color: white;
   padding: 1.5rem;
-  border-radius: 10px;
-  width: 300px;
-  text-align: center;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  transition: 0.3s;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s;
 }
 
 .dashboard-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transform: translateY(-4px);
 }
 
 .dashboard-card h3 {
-  color: #002c5f;
+  margin-bottom: 0.5rem;
+  color: #002244;
+}
+
+.dashboard-card p {
+  font-size: 0.95rem;
+  color: #555;
 }
 
 .dashboard-card button {
-  margin-top: 10px;
-  padding: 10px 15px;
-  background-color: #002c5f;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #003366;
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 4px;
   cursor: pointer;
+  font-weight: 500;
 }
 
 .dashboard-card button:hover {
-  background-color: #001a3a;
+  background-color: #001f4d;
 }

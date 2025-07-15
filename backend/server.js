@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
 const adminRoutes = require('./routes/adminRoutes');
+const caseRoutes = require('./routes/caseRoutes');
 const path = require('path');
 
 dotenv.config();
@@ -20,6 +21,7 @@ app.use(express.json());
 
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/cases', caseRoutes);
 
 // Test route
 app.get('/', (req, res) => {
