@@ -15,7 +15,14 @@ import ManageJudges from './pages/ManageJudges';
 import ViewUsers from './pages/ViewUsers';
 import FileCase from './pages/FileCase';
 import MyCases from './pages/MyCases';
-
+import JudgeVideoForm from './pages/JudgeVideoForm';
+import AdminVideoForm from './pages/AdminVideoForm';
+import LawyerVideoForm from './pages/LawyerVideoForm';
+import PetitionerVideoForm from './pages/PetitionerVideoForm';
+import VideoConference from './pages/VideoConference';
+import CaseManagement from './pages/CaseManagement';
+import SystemAnalytics from './pages/SystemAnalytics';
+import AdminSettings from './pages/Settings';
 const App = () => {
   return (
     <Router>
@@ -35,6 +42,65 @@ const App = () => {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/admin/lawyers"
+            element={
+              <ProtectedRoute role="Admin">
+                <ManageLawyers />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/judges"
+            element={
+              <ProtectedRoute role="Admin">
+                <ManageJudges />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/users"
+            element={
+              <ProtectedRoute role="Admin">
+                <ViewUsers />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/cases"
+            element={
+              <ProtectedRoute role="Admin">
+                <CaseManagement />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/analytics"
+            element={
+              <ProtectedRoute role="Admin">
+                <SystemAnalytics />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/settings"
+            element={
+              <ProtectedRoute role="Admin">
+                <AdminSettings />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Lawyer Dashboard */}
+          <Route
+            path="/lawyer-dashboard"
+            element={
+              <ProtectedRoute role="Lawyer">
+                <LawyerDashboard />
+              </ProtectedRoute>
+            }
+          />
+
           <Route
             path="/lawyer-dashboard"
             element={
@@ -101,6 +167,46 @@ const App = () => {
                       </ProtectedRoute>
                     }
         />
+        
+        {/* Video Conference Routes */}
+        <Route
+          path="/judge-video-form"
+          element={
+            <ProtectedRoute role="Judge">
+              <JudgeVideoForm />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin-video-form"
+          element={
+            <ProtectedRoute role="Admin">
+              <AdminVideoForm />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/petitioner-video-form"
+          element={
+            <ProtectedRoute role="Petitioner">
+              <PetitionerVideoForm />
+            </ProtectedRoute>
+          }
+          />
+        <Route
+          path="/lawyer-video-form"
+          element={
+            <ProtectedRoute role="Lawyer">
+              <LawyerVideoForm />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/video-conference/:caseNumber"
+          element={<VideoConference />}
+          />
+          
+        
         </Routes>
         <Footer />
       </div>

@@ -1,61 +1,74 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FaBell } from 'react-icons/fa';
 import './PetitionerDashboard.css';
 
 const PetitionerDashboard = () => {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('user'));
 
-  // Sample: Open Jitsi room with user ID
-  const handleJoinHearing = () => {
-    const domain = 'meet.jit.si';
-    const roomName = `JustiFlow_Hearing_${user.id}`;
-    const options = {
-      roomName: roomName,
-      width: 900,
-      height: 500,
-      parentNode: document.getElementById('jitsi-container'),
-      userInfo: {
-        displayName: user.name
-      }
-    };
+  const [notifications] = useState([
+    { id: 1, message: "Your case #C-2025-01 hearing is scheduled for Aug 20, 2025." },
+    { id: 2, message: "Judge has reviewed your submitted documents for case #C-2025-02." },
+    { id: 3, message: "Reminder: Submit missing affidavit for case #C-2025-03 by Aug 18." }
+  ]);
 
-    // Load Jitsi
-    const script = document.createElement('script');
-    script.src = 'https://meet.jit.si/external_api.js';
-    script.onload = () => {
-      new window.JitsiMeetExternalAPI(domain, options);
-    };
-    document.body.appendChild(script);
-  };
+  const [showNotifications, setShowNotifications] = useState(false);
 
   return (
     <div className="petitioner-dashboard">
-      <h2>Welcome, Petitioner</h2>
+      <div className="dashboard-header">
+        <h2>Welcome, {user?.name || "Petitioner"}</h2>
 
+        {/* Notification Bell */}
+        <div className="notification-wrapper">
+          <button
+            className="notification-bell"
+            onClick={() => setShowNotifications(!showNotifications)}
+          >
+            <FaBell size={22} />
+            {notifications.length > 0 && (
+              <span className="notification-badge">{notifications.length}</span>
+            )}
+          </button>
+
+          {showNotifications && (
+            <div className="notifications-dropdown">
+              <h4>Notifications</h4>
+              {notifications.length > 0 ? (
+                notifications.map((note) => (
+                  <div key={note.id} className="notification-item">
+                    {note.message}
+                  </div>
+                ))
+              ) : (
+                <p>No new notifications</p>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Dashboard Grid */}
       <div className="dashboard-grid">
-        {/* File Case */}
         <div className="dashboard-card">
           <h3>File New Case</h3>
           <p>Submit a new petition to start your case.</p>
           <button onClick={() => navigate('/file-case')}>File Case</button>
         </div>
 
-        {/* My Cases */}
         <div className="dashboard-card">
           <h3>My Cases</h3>
           <p>Track all the cases you have filed.</p>
           <button onClick={() => navigate('/my-cases')}>View Cases</button>
         </div>
 
-        {/* Live Hearing */}
         <div className="dashboard-card">
           <h3>Join Live Hearing</h3>
           <p>Join the e-Hearing with the Judge & Lawyer.</p>
-          <button onClick={handleJoinHearing}>Join Hearing</button>
+          <button onClick={() => navigate('/petitioner-video-form')}>Join Hearing</button>
         </div>
 
-        {/* Contact Lawyer */}
         <div className="dashboard-card">
           <h3>Contact Lawyer</h3>
           <p>Reach your assigned lawyer for consultation.</p>
@@ -64,7 +77,6 @@ const PetitionerDashboard = () => {
           </button>
         </div>
 
-        {/* Contact Judge */}
         <div className="dashboard-card">
           <h3>Contact Judge</h3>
           <p>Send official queries to the judge's chamber.</p>
@@ -73,9 +85,6 @@ const PetitionerDashboard = () => {
           </button>
         </div>
       </div>
-
-      {/* Jitsi container */}
-      <div id="jitsi-container" style={{ marginTop: '2rem' }}></div>
     </div>
   );
 };

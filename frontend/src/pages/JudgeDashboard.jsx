@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './JudgeDashboard.css';
 
 const JudgeDashboard = () => {
   const [cases, setCases] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Simulated backend call - replace with actual API later
@@ -47,6 +49,12 @@ const JudgeDashboard = () => {
               <div className="actions">
                 <button className="view-btn">View Details</button>
                 <button className="judgment-btn">Add Judgment</button>
+                <button 
+                  className="hearing-btn"
+                  onClick={() => navigate('/judge-video-form')}
+                >
+                  Join Hearing
+                </button>
               </div>
             </div>
           ))}

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './LawyerDashboard.css';
 
 const LawyerDashboard = () => {
   const [cases, setCases] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Replace with actual fetch
@@ -43,6 +45,12 @@ const LawyerDashboard = () => {
               <div className="actions">
                 <button className="view-btn">View Details</button>
                 <button className="upload-btn">Upload Response</button>
+                <button 
+                  className="hearing-btn"
+                  onClick={() => navigate('/lawyer-video-form')}
+                >
+                  Join Hearing
+                </button>
               </div>
             </div>
           ))}
